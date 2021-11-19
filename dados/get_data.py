@@ -22,7 +22,6 @@ def get_dados(siglas, num_dias = 588, intervalo = '1wk', inicio = '',  fim = '')
         
         df.drop(['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis = 1, inplace = True)
         df = df.transpose()
-        df.reset_index(drop = True, inplace = True)
         df.dropna(axis = 1, inplace = True)
         df.index = [sigla]
 
