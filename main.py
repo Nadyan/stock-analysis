@@ -1,8 +1,8 @@
 import pandas as pd
-import random
 
 from dados.get_data import get_dados
-from modelo.mlp import cria, treina
+from modelo.svc import modelo_svc, previsao_svc
+from dados.utils import gera_aleatorios
 
 siglas = [
             'MGLU3.SA', 
@@ -19,27 +19,12 @@ siglas = [
             'FLRY3.SA'
         ]
 
-lista = get_dados(siglas)
-dados = pd.concat(lista)
+dados = get_dados(siglas)
+dados['eval'] = gera_aleatorios(len(dados))
 
-evals = []
-for i in range(len(dados)):
-  evals.append(random.randint(0, 1))
-dados['eval'] = evals
+x = dados.drop(['eval'], axis = 1)
+y = dados['eval']
 
-modelo = cria(len(dados.columns)-1, 126, 1)
-
-#print('Parametros antes do treino')    
-#for name, param in modelo.named_parameters():
-    
- #   print(name)
-  #  print(param)
-
-modelo = treina(modelo, dados)
-
-#print('Parametros depois do treino')
-#for name, param in modelo.named_parameters():
-        
-        
-#        print(name)
-#        print(param)
+modeloSVC = modelo_svc(x, y)
+siglas_teste = ['MGLU3.SA', 'FLRY3.SA']
+previsao_svc(modeloSVC, siglas_teste)

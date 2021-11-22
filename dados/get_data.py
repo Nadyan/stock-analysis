@@ -26,5 +26,7 @@ def get_dados(siglas, num_dias = 588, intervalo = '1wk', inicio = '',  fim = '')
         df.index = [sigla]
 
         dados.append(df)
-    
+
+    dados = pd.concat(dados)
+
     return dados

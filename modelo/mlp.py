@@ -3,6 +3,16 @@ import torch
 from torch import nn
 from torch import optim
 
+"""
+    modelo = cria(len(dados.columns)-1, 126, 1)
+    modelo = treina(modelo, dados)
+
+    print('Parametros depois do treino')
+    for name, param in modelo.named_parameters():        
+    print(name)
+    print(param)
+"""
+
 def cria(input_size, hidden_size, output_size):
     rede = nn.Sequential(
                 nn.Linear(in_features=input_size, out_features=hidden_size),
@@ -13,7 +23,7 @@ def cria(input_size, hidden_size, output_size):
 
     return rede
 
-def treina(modelo, dados, passos = 5):
+def treina(modelo, dados, passos = 20):
     criterio = nn.BCELoss()
     otimizador = optim.SGD(modelo.parameters(), lr = 1e-3)
     
